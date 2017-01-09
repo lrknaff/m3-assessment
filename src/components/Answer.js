@@ -9,6 +9,7 @@ export default class Answer extends Component {
           <input
             type="radio"
             value={answer.score}
+            name={id}
           />
           {answer.title}
         </label>
