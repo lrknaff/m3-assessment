@@ -1,16 +1,36 @@
 import React, { Component } from 'react';
-import '../styles/App.css';
+import axios from 'axios';
+import Quiz from './Quiz.js';
 
 class App extends Component {
+  constructor() {
+  super()
+      this.state = {
+        quizzes: null,
+      }
+    }
+
+  componentDidMount() {
+    this.getQuiz()
+  }
+
+  getQuiz() {
+    axios.get('/quizzes')
+    .then((response) => {
+      this.setState({ quizzes: response.data.quizzes })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        { this.state.quizzes ?
+          <Quiz data={this.state.quizzes}/> :
+          <p>Loading...</p>
+        }
       </div>
     );
   }
