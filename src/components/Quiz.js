@@ -7,7 +7,9 @@ export default class Quiz extends Component {
   render() {
     return (
       <div className="quiz-container">
-        <h2>{this.props.data[0].title}</h2>
+        <header>
+          <h2>{this.props.data[0].title}</h2>
+        </header>
         {this.props.data[0].questions.map(questions =>
           <Questions
             key={questions.id}
@@ -16,7 +18,7 @@ export default class Quiz extends Component {
             id={questions.id}
           />
         )}
-        <input type="submit" value="submit" />
+        <input className="submit-button" type="submit" value="submit" />
       </div>
     );
   }
