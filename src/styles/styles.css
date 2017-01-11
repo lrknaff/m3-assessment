@@ -28,6 +28,14 @@ h3 {
   letter-spacing: 0.05em;
 }
 
+h4 {
+  font-family: 'Monterserrat', sans-serif;
+  padding: 20px;
+  font-size: 1.4em;
+  color: #B06AB3;
+  text-align: center;
+}
+
 .question {
   margin: 50px 0 0 85px;
 }
@@ -62,4 +70,9 @@ input {
 
 .submit-button:hover {
   background: #4568DC;
+}
+
+.submit-button:disabled {
+  background: #ccc;
+  cursor: default;
 }
