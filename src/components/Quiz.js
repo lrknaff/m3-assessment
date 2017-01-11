@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Questions from './Questions.js'
-import Answer from './Answer.js'
 
 export default class Quiz extends Component {
 
