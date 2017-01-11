@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Questions from './Questions.js'
+import Questions from './Questions.js';
+import axios from 'axios';
 
 export default class Quiz extends Component {
   constructor() {
@@ -7,6 +8,7 @@ export default class Quiz extends Component {
       this.state = {
         totalScore: 0,
         currentScores: {},
+        questionLength: 0,
       }
     }
 
@@ -15,6 +17,7 @@ export default class Quiz extends Component {
     let id = e.target.name
     this.state.currentScores[id] = score
     console.log(this.state.currentScores)
+    this.currentScoresLength()
   }
 
   handleTotal(e) {
@@ -23,6 +26,26 @@ export default class Quiz extends Component {
       return a + b;
     }, 0);
     this.setState({ totalScore: total })
+    this.postScore()
+  }
+
+  currentScoresLength() {
+    let count = 0
+    for(var i in this.state.currentScores) {
+      if (this.state.currentScores.hasOwnProperty(i)) {
+        count ++
+        this.setState({ questionLength: count })
+      }
+    }
+  }
+
+  postScore() {
+    axios.post('/scores', {
+      score: this.state.totalScore,
+    })
+    .then(function (response) {
+    console.log(response);
+    })
   }
 
   render() {
@@ -47,6 +70,7 @@ export default class Quiz extends Component {
           type="submit"
           value="submit"
           onClick={this.handleTotal.bind(this)}
+          disabled={this.state.questionLength < this.props.data[0].questions.length ? true : false}
         />
       </div>
     );
