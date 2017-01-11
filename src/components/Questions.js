@@ -3,7 +3,7 @@ import Answer from './Answer.js'
 
 export default class Questions extends Component {
   render() {
-    const { title, answers, id, score, addScore } = this.props
+    const { title, answers, id, score, handleScore, checked } = this.props
     return (
       <div className="question">
         <h3 className="question-title">{title}</h3>
@@ -13,7 +13,8 @@ export default class Questions extends Component {
             id={id}
             answer={answer}
             score={score}
-            addScore={addScore}
+            handleScore={handleScore}
+            checked={checked}
           />
         )}
       </div>

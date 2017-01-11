@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class Answer extends Component {
   render() {
-    const { id, answer, addScore } = this.props
+    const { id, answer, handleScore, checked } = this.props
     return (
       <div className="answer-container">
         <label>
@@ -11,7 +11,8 @@ export default class Answer extends Component {
             value={answer.score}
             name={id}
             required
-            onClick={addScore}
+            onClick={handleScore}
+            checked={checked}
           />
           {answer.title}
         </label>

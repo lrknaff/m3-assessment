@@ -9,6 +9,7 @@ export default class Quiz extends Component {
         totalScore: 0,
         currentScores: {},
         questionLength: 0,
+        checked: null,
       }
     }
 
@@ -18,6 +19,7 @@ export default class Quiz extends Component {
     this.state.currentScores[id] = score
     console.log(this.state.currentScores)
     this.currentScoresLength()
+    this.setState({ checked: null })
   }
 
   handleTotal(e) {
@@ -39,6 +41,11 @@ export default class Quiz extends Component {
     }
   }
 
+  handleClear(e) {
+    e.preventDefault
+    this.setState({totalScore: 0, currentScores: {}, questionLength: 0, checked: false})
+  }
+
   postScore() {
     axios.post('/scores', {
       score: this.state.totalScore,
@@ -47,6 +54,7 @@ export default class Quiz extends Component {
     console.log(response);
     })
   }
+
 
   render() {
     return (
@@ -62,7 +70,8 @@ export default class Quiz extends Component {
             answers={questions.answers}
             id={questions.id}
             score={this.state.score}
-            addScore={this.handleScore.bind(this)}
+            handleScore={this.handleScore.bind(this)}
+            checked={this.state.checked}
           />
         )}
         <input
@@ -71,6 +80,13 @@ export default class Quiz extends Component {
           value="submit"
           onClick={this.handleTotal.bind(this)}
           disabled={this.state.questionLength < this.props.data[0].questions.length ? true : false}
+        />
+        <input
+          className="submit-button"
+          type="submit"
+          value="clear"
+          onClick={this.handleClear.bind(this)}
+          disabled={this.state.questionLength ? false : true}
         />
       </div>
     );
